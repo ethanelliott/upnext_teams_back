@@ -1,0 +1,49 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "team.upnext.upnextteams"
+    },
+    "jhipsterVersion": "6.10.1",
+    "applicationType": "monolith",
+    "baseName": "upnextteams",
+    "packageName": "team.upnext.upnextteams",
+    "packageFolder": "team/upnext/upnextteams",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "no",
+    "enableHibernateCache": false,
+    "websocket": false,
+    "databaseType": "no",
+    "devDatabaseType": "no",
+    "prodDatabaseType": "no",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "gradle",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "YWYyZDg3NzU2ODIwYzEzZmI3MDgzNWY2MWEyMmFkYWIxYzJhMzBiZmEzMzQ0ZDM2ZmRjMTBiZDY2ZGVlNmU4ZDk3NjhkNWQ5NTAwZWZmMzZiODE0N2MzMGU0ODE3NzU3ZTIxMjRiY2FhN2IyZmU5MzdkNmU1MTE2MTc2Njk5ZmQ=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "skipClient": true,
+    "creationTimestamp": 1596393796182,
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [
+      {
+        "name": "generator-jhipster-kotlin",
+        "version": "1.9.0"
+      }
+    ],
+    "enableTranslation": false,
+    "blueprints": [
+      {
+        "name": "generator-jhipster-kotlin",
+        "version": "1.9.0"
+      }
+    ],
+    "reactive": true
+  }
+}

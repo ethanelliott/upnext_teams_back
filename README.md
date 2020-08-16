@@ -7,7 +7,9 @@ This application was generated using JHipster 6.10.1, you can find documentation
 To start your application in the dev profile, run:
 
 ```
+docker run -p 27017:27017 --name mongo -d mongo
 ./gradlew
+docker run -p 7999:8080 -e SWAGGER_JSON=https://localhost:8080/v2/api-docs swaggerapi/swagger-ui
 ```
 
 For further instructions on how to develop with JHipster, have a look at [Using JHipster in development][].

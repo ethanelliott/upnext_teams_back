@@ -3,7 +3,6 @@ import team.upnext.upnextteams.domain.Track
 import team.upnext.upnextteams.repository.TrackRepository
 import org.slf4j.LoggerFactory
 
-import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
@@ -31,12 +30,11 @@ class TrackService(
     /**
      * Get all the tracks.
      *
-     * @param pageable the pagination information.
      * @return the list of entities.
      */
-    fun findAll(pageable: Pageable): Flux<Track> {
+    fun findAll(): Flux<Track> {
         log.debug("Request to get all Tracks")
-        return trackRepository.findAllBy(pageable)
+        return trackRepository.findAll()            
     }
 
 

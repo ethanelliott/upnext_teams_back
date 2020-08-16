@@ -101,6 +101,26 @@ class TrackResourceIT  {
 
 
     @Test
+    fun getAllTracksAsStream() {
+        // Initialize the database
+        trackRepository.save(track).block()
+
+        val trackList = webTestClient.get().uri("/api/tracks")
+            .accept(MediaType.APPLICATION_STREAM_JSON)
+            .exchange()
+            .expectStatus().isOk
+            .expectHeader().contentTypeCompatibleWith(MediaType.APPLICATION_STREAM_JSON)
+            .returnResult(Track::class.java)
+            .responseBody
+            .filter(track::equals)
+            .collectList()
+            .block(Duration.ofSeconds(5))
+
+        assertThat(trackList).isNotNull
+        assertThat(trackList).hasSize(1)
+        val testTrack = trackList[0]
+    }
+    @Test
     
     fun getAllTracks() {
         // Initialize the database

@@ -5,16 +5,10 @@ import team.upnext.upnextteams.service.TrackService
 import team.upnext.upnextteams.web.rest.errors.BadRequestAlertException
 
 import io.github.jhipster.web.util.HeaderUtil
-import io.github.jhipster.web.util.PaginationUtil
 import io.github.jhipster.web.util.reactive.ResponseUtil
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
-import org.springframework.data.domain.PageImpl
-import org.springframework.http.HttpStatus
-import org.springframework.http.server.reactive.ServerHttpRequest
-import org.springframework.web.util.UriComponentsBuilder
+import org.springframework.http.HttpStatus  
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -93,19 +87,24 @@ class TrackResource(
     /**
      * `GET  /tracks` : get all the tracks.
      *
-     * @param pageable the pagination information.
-     * @param request a [ServerHttpRequest] request.
 
      * @return the [ResponseEntity] with status `200 (OK)` and the list of tracks in body.
      */
     @GetMapping("/tracks")    
-    fun getAllTracks(pageable: Pageable, request: ServerHttpRequest): Mono<ResponseEntity<Flux<Track>>> {
-        log.debug("REST request to get a page of Tracks")
+    fun getAllTracks(): Mono<MutableList<Track>> {
+        log.debug("REST request to get all Tracks")
         
-        return trackService.countAll()
-            .map { PageImpl<Track>(listOf(), pageable, it) }
-            .map { PaginationUtil.generatePaginationHttpHeaders(UriComponentsBuilder.fromHttpRequest(request), it) }
-            .map { ResponseEntity.ok().headers(it).body(trackService.findAll(pageable)) }
+        return trackService.findAll().collectList()
+            }
+
+    /**
+     * `GET  /tracks` : get all the tracks as a stream.
+     * @return the [Flux] of tracks.
+     */
+    @GetMapping(value = ["/tracks"], produces = [MediaType.APPLICATION_STREAM_JSON_VALUE])
+    fun getAllTracksAsStream(): Flux<Track> {
+        log.debug("REST request to get all Tracks as a stream")
+        return trackService.findAll()
     }
 
     /**

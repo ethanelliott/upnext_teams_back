@@ -33,5 +33,5 @@
   "databaseType": "mongodb",
   "readOnly": false,
   "jpaMetamodelFiltering": false,
-  "pagination": "pagination"
+  "pagination": "no"
 }

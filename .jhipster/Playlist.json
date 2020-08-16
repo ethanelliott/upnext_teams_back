@@ -1,0 +1,21 @@
+{
+  "fluentMethods": true,
+  "clientRootFolder": "",
+  "relationships": [
+    {
+      "relationshipName": "tracks",
+      "otherEntityName": "track",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "playlist"
+    }
+  ],
+  "fields": [],
+  "dto": "no",
+  "searchEngine": false,
+  "service": "serviceClass",
+  "entityTableName": "playlist",
+  "databaseType": "mongodb",
+  "readOnly": false,
+  "jpaMetamodelFiltering": false,
+  "pagination": "no"
+}

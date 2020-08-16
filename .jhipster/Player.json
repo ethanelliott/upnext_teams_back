@@ -1,0 +1,30 @@
+{
+  "fluentMethods": true,
+  "clientRootFolder": "",
+  "relationships": [
+    {
+      "relationshipName": "current",
+      "otherEntityName": "track",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": [],
+      "otherEntityField": "id",
+      "otherEntityRelationshipName": "player"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "state",
+      "fieldType": "PlayerState",
+      "fieldValues": "IDLE,PLAYING,PAUSED,FINISHED,STOPPED",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "dto": "no",
+  "searchEngine": false,
+  "service": "serviceClass",
+  "entityTableName": "player",
+  "databaseType": "mongodb",
+  "readOnly": false,
+  "jpaMetamodelFiltering": false,
+  "pagination": "no"
+}

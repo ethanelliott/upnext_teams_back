@@ -1,0 +1,16 @@
+version: '2'
+services:
+  upnextteams-mongodb:
+    image: mongo:4.2.7
+    ports:
+      - '27017:27017'
+    command: mongos --configdb csvr/upnextteams-mongodb-config --bind_ip 0.0.0.0
+  upnextteams-mongodb-node:
+    build:
+      context: .
+      dockerfile: mongodb/MongoDB.Dockerfile
+    command: mongod --shardsvr --replSet rs1
+  upnextteams-mongodb-config:
+    image: mongo:4.2.7
+    container_name: upnextteams-mongodb-config
+    command: mongod --configsvr --dbpath /data/db --replSet csvr

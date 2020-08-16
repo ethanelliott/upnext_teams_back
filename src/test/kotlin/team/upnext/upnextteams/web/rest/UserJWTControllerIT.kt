@@ -1,21 +1,29 @@
 package team.upnext.upnextteams.web.rest
 
-import team.upnext.upnextteams.UpNextTeamsApp
+import team.upnext.upnextteams.UpnextteamsApp
+import team.upnext.upnextteams.domain.User
+import team.upnext.upnextteams.repository.UserRepository
 import team.upnext.upnextteams.web.rest.vm.LoginVM
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.test.web.reactive.server.WebTestClient
 
 /**
  * Integration tests for the [UserJWTController] REST controller.
  */
 @AutoConfigureWebTestClient
-@SpringBootTest(classes = [UpNextTeamsApp::class])
+@SpringBootTest(classes = [UpnextteamsApp::class])
 class UserJWTControllerIT {
 
+    @Autowired
+    private lateinit var userRepository: UserRepository
+
+    @Autowired
+    private lateinit var passwordEncoder: PasswordEncoder
 
     @Autowired
     private lateinit var webTestClient: WebTestClient
@@ -23,7 +31,16 @@ class UserJWTControllerIT {
     @Test
     @Throws(Exception::class)
     fun testAuthorize() {
-        val login = LoginVM(username ="test", password = "test")
+        val user = User(
+            login = "user-jwt-controller",
+            email = "user-jwt-controller@example.com",
+            activated = true,
+            password = passwordEncoder.encode("test")
+        )
+
+        userRepository.save(user).block()
+
+        val login = LoginVM(username = "user-jwt-controller", password = "test")
         webTestClient.post().uri("/api/authenticate")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(convertObjectToJsonBytes(login))
@@ -37,8 +54,17 @@ class UserJWTControllerIT {
     @Test
     @Throws(Exception::class)
     fun testAuthorizeWithRememberMe() {
+        val user = User(
+            login = "user-jwt-controller-remember-me",
+            email = "user-jwt-controller-remember-me@example.com",
+            activated = true,
+            password = passwordEncoder.encode("test")
+        )
+
+        userRepository.save(user).block()
+
         val login = LoginVM(
-            username ="test",
+            username = "user-jwt-controller-remember-me",
             password = "test",
             isRememberMe = true
         )

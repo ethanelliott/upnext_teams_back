@@ -24,8 +24,7 @@ spring:
     active: dev
     include:
       - swagger
-      # Uncomment to activate TLS for the dev profile
-      #- tls
+      - tls
   devtools:
     restart:
       enabled: true
@@ -35,6 +34,10 @@ spring:
   jackson:
     serialization:
       indent-output: true
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/?waitQueueMultiple=1000
+      database: upnextteams
   mail:
     host: localhost
     port: 25
@@ -84,6 +87,9 @@ jhipster:
       host: localhost
       port: 5000
       queue-size: 512
+  audit-events:
+    retention-period: 30 # Number of days before audit events are deleted.
+
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class

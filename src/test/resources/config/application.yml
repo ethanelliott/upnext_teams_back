@@ -19,16 +19,17 @@ spring:
   jackson:
     serialization:
       write-durations-as-timestamps: false
+  data:
+    mongodb:
+      host: localhost
+      port: 0
+      database: upnextteams
   mail:
     host: localhost
   main:
     allow-bean-definition-overriding: true
   messages:
     basename: i18n/messages
-  security:
-    user:
-      name: test
-      password: test
   task:
     execution:
       thread-name-prefix: upnextteams-task-
@@ -64,6 +65,9 @@ jhipster:
       host: localhost
       port: 5000
       queue-size: 512
+  mail:
+    from: test@localhost
+    base-url: http://127.0.0.1:8080
   security:
     authentication:
       jwt:

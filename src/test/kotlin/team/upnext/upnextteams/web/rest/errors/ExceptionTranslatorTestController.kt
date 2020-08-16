@@ -1,5 +1,6 @@
 package team.upnext.upnextteams.web.rest.errors
 
+import org.springframework.dao.ConcurrencyFailureException
 import org.springframework.http.HttpStatus
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.authentication.BadCredentialsException
@@ -18,6 +19,9 @@ import javax.validation.constraints.NotNull
 @RestController
 @RequestMapping("/api/exception-translator-test")
 class ExceptionTranslatorTestController {
+
+    @GetMapping("/concurrency-failure")
+    fun concurrencyFailure(): Unit = throw ConcurrencyFailureException("test concurrency failure")
 
     @PostMapping("/method-argument")
     fun methodArgument(@Valid @RequestBody testDTO: TestDTO ) = Unit

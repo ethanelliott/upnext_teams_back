@@ -1,6 +1,6 @@
 package team.upnext.upnextteams.web.rest.errors
 
-import team.upnext.upnextteams.UpNextTeamsApp
+import team.upnext.upnextteams.UpnextteamsApp
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -15,12 +15,22 @@ import org.springframework.test.web.reactive.server.WebTestClient
  */
 @WithMockUser
 @AutoConfigureWebTestClient
-@SpringBootTest(classes = [UpNextTeamsApp::class])
+@SpringBootTest(classes = [UpnextteamsApp::class])
 class ExceptionTranslatorIT {
 
     @Autowired
     private lateinit var webTestClient: WebTestClient
 
+
+    @Test
+    fun testConcurrencyFailure() {
+        webTestClient.get().uri("/api/exception-translator-test/concurrency-failure")
+            .exchange()
+            .expectStatus().isEqualTo(HttpStatus.CONFLICT)
+            .expectHeader().contentType(MediaType.APPLICATION_PROBLEM_JSON)
+            .expectBody()
+            .jsonPath("\$.message").isEqualTo(ERR_CONCURRENCY_FAILURE)
+    }
 
     @Test
     fun testMethodArgumentNotValid() {

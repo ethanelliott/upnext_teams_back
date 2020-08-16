@@ -93,6 +93,8 @@ fun <T : Any> equalsVerifier(clazz: KClass<T>) {
     // Test with an instance of the same class
     val domainObject2 = clazz.createInstance()
     assertThat(domainObject1).isNotEqualTo(domainObject2)
+    // HashCodes are equals because the objects are not persisted yet
+    assertThat(domainObject1.hashCode()).isEqualTo(domainObject2.hashCode())
 }
 
 

@@ -3,6 +3,7 @@ package team.upnext.upnextteams.web.rest.errors
 import io.github.jhipster.web.util.HeaderUtil
 
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.dao.ConcurrencyFailureException
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -82,6 +83,22 @@ class ExceptionTranslator : ProblemHandling, SecurityAdviceTrait {
         return create(ex, problem, request)
     }
 
+    @ExceptionHandler
+    fun handleEmailAlreadyUsedException(ex: team.upnext.upnextteams.service.EmailAlreadyUsedException, request: ServerWebExchange): Mono<ResponseEntity<Problem>> {
+        val problem = EmailAlreadyUsedException()
+        return create(problem, request, HeaderUtil.createFailureAlert(applicationName,  false, problem.entityName, problem.errorKey, problem.message))
+    }
+
+    @ExceptionHandler
+    fun handleUsernameAlreadyUsedException(ex: team.upnext.upnextteams.service.UsernameAlreadyUsedException, request: ServerWebExchange): Mono<ResponseEntity<Problem>> {
+        val problem = LoginAlreadyUsedException()
+        return create(problem, request, HeaderUtil.createFailureAlert(applicationName,  false, problem.entityName, problem.errorKey, problem.message))
+    }
+
+    @ExceptionHandler
+    fun handleInvalidPasswordException(ex: team.upnext.upnextteams.service.InvalidPasswordException, request: ServerWebExchange): Mono<ResponseEntity<Problem>> {
+        return create(InvalidPasswordException(), request)
+    }
 
     @ExceptionHandler
     fun handleBadRequestAlertException(
@@ -92,4 +109,13 @@ class ExceptionTranslator : ProblemHandling, SecurityAdviceTrait {
             ex, request,
             HeaderUtil.createFailureAlert(applicationName, false, ex.entityName, ex.errorKey, ex.message)
         )
+
+    @ExceptionHandler
+    fun handleConcurrencyFailure(ex: ConcurrencyFailureException, request: ServerWebExchange): Mono<ResponseEntity<Problem>> {
+        val problem = Problem.builder()
+            .withStatus(Status.CONFLICT)
+            .with(MESSAGE_KEY, ERR_CONCURRENCY_FAILURE)
+            .build()
+        return create(ex, problem, request)
+    }
 }

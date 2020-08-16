@@ -17,7 +17,7 @@ import java.net.UnknownHostException
 
 @SpringBootApplication
 @EnableConfigurationProperties(ApplicationProperties::class)
-class UpNextTeamsApp(private val env: Environment) {
+class UpnextteamsApp(private val env: Environment) {
 
     private val log = LoggerFactory.getLogger(javaClass)
 
@@ -57,13 +57,13 @@ class UpNextTeamsApp(private val env: Environment) {
          */
         @JvmStatic
         fun main(args: Array<String>) {
-            val env = runApplication<UpNextTeamsApp>(*args) { DefaultProfileUtil.addDefaultProfile(this) }.environment
+            val env = runApplication<UpnextteamsApp>(*args) { DefaultProfileUtil.addDefaultProfile(this) }.environment
             logApplicationStartup(env)
         }
 
         @JvmStatic
         private fun logApplicationStartup(env: Environment) {
-            val log = LoggerFactory.getLogger(UpNextTeamsApp::class.java)
+            val log = LoggerFactory.getLogger(UpnextteamsApp::class.java)
 
             val protocol = if (env.getProperty("server.ssl.key-store") != null) {
                 "https"

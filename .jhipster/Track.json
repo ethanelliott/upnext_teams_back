@@ -1,0 +1,37 @@
+{
+  "fluentMethods": true,
+  "clientRootFolder": "",
+  "relationships": [
+    {
+      "relationshipName": "audio",
+      "otherEntityName": "youtubeAudio",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"],
+      "otherEntityField": "url",
+      "otherEntityRelationshipName": "track"
+    },
+    {
+      "relationshipName": "metadata",
+      "otherEntityName": "youtubeMetadata",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"],
+      "otherEntityField": "url",
+      "otherEntityRelationshipName": "track"
+    },
+    {
+      "relationshipName": "votes",
+      "otherEntityName": "vote",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "track"
+    }
+  ],
+  "fields": [],
+  "dto": "no",
+  "searchEngine": false,
+  "service": "serviceClass",
+  "entityTableName": "track",
+  "databaseType": "mongodb",
+  "readOnly": false,
+  "jpaMetamodelFiltering": false,
+  "pagination": "pagination"
+}
